@@ -1,0 +1,21 @@
+<div id="<%= dom_id item %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= item.name %>
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1">Net:</strong>
+    <%= number_to_currency(item.net_price, unit: "£") %>
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1">VAT:</strong>
+    <%= number_to_currency(item.vat_price, unit: "£") %> (<%= item.vat_rate %>%)
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1">Gross:</strong>
+    <%= number_to_currency(item.gross_price, unit: "£") %>
+  </div>
+</div>
