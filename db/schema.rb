@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_20_162737) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_20_233527) do
   create_table "items", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -18,4 +18,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_20_162737) do
     t.datetime "updated_at", null: false
     t.decimal "vat_rate"
   end
+
+  create_table "till_sessions", force: :cascade do |t|
+    t.datetime "closed_at"
+    t.decimal "closing_float"
+    t.datetime "created_at", null: false
+    t.datetime "opened_at", null: false
+    t.decimal "opening_float", null: false
+    t.integer "till_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["till_id"], name: "index_till_sessions_on_till_id"
+    t.index ["till_id"], name: "unique_active_till_session_per_till", unique: true, where: "closed_at IS NULL"
+  end
+
+  create_table "tills", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "till_sessions", "tills"
 end
