@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  resources :items
+  namespace :admin do
+    resources :items
 
-  resources :tills do
-    resources :till_sessions do
-      member do
-        patch :close
+    resources :tills do
+      resources :till_sessions do
+        member do
+          patch :close
+        end
       end
     end
   end

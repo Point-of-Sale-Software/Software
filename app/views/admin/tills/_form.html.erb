@@ -1,4 +1,4 @@
-<%= form_with(model: till, class: "contents") do |form| %>
+<%= form_with(model: [:admin, till], class: "contents") do |form| %>
   <% if till.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
       <h2><%= pluralize(till.errors.count, "error") %> prohibited this till from being saved:</h2>
