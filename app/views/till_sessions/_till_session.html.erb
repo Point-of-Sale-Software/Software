@@ -3,4 +3,11 @@
     <strong class="block font-medium mb-1">Opening float:</strong>
     <%= till_session.opening_float %>
   </div>
+
+  <% unless till_session.active? %>
+    <div>
+      <strong class="block font-medium mb-1">Closing float:</strong>
+      <%= till_session.closing_float %>
+    </div>
+  <% end %>
 </div>

@@ -29,7 +29,7 @@ class TillSessionsController < ApplicationController
 
   # PATCH /tills/1/till_sessions/1/close
   def close
-    if @till_session.close(closing_float: params[:closing_float])
+    if @till_session.close!(closing_float: params[:closing_float])
       redirect_to [@till, @till_session], notice: "Till session was successfully closed."
     else
       redirect_to [@till, @till_session], notice: @till_session.errors.full_messages.to_sentence
