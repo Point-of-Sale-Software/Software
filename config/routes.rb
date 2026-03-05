@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "user_login/login_page"
   resources :items
 
   resources :tills do
@@ -8,7 +9,10 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  
+  get  '/login',  to: 'user_login#login_page'
+  post '/login',  to: 'user_login#login_page'
+  root 'user_login#login_page'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
