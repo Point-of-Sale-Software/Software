@@ -25,7 +25,7 @@ module Admin
       @till = Till.new(till_params)
 
       if @till.save
-        redirect_to [:admin, @till], notice: "Till was successfully created."
+        redirect_to [ :admin, @till ], notice: "Till was successfully created."
       else
         render :new, status: :unprocessable_content
       end
@@ -34,7 +34,7 @@ module Admin
     # PATCH/PUT /tills/1
     def update
       if @till.update(till_params)
-        redirect_to [:admin, @till], notice: "Till was successfully updated.", status: :see_other
+        redirect_to [ :admin, @till ], notice: "Till was successfully updated.", status: :see_other
       else
         render :edit, status: :unprocessable_content
       end

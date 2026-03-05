@@ -22,7 +22,7 @@ module Admin
       @till_session = @till.till_sessions.new(till_session_params)
 
       if @till_session.save
-        redirect_to [:admin, @till, @till_session], notice: "Till session was successfully created."
+        redirect_to [ :admin, @till, @till_session ], notice: "Till session was successfully created."
       else
         render :new, status: :unprocessable_content
       end
@@ -31,9 +31,9 @@ module Admin
     # PATCH /tills/1/till_sessions/1/close
     def close
       if @till_session.close!(closing_float: params[:closing_float])
-        redirect_to [:admin, @till, @till_session], notice: "Till session was successfully closed."
+        redirect_to [ :admin, @till, @till_session ], notice: "Till session was successfully closed."
       else
-        redirect_to [:admin, @till, @till_session], notice: @till_session.errors.full_messages.to_sentence
+        redirect_to [ :admin, @till, @till_session ], notice: @till_session.errors.full_messages.to_sentence
       end
     end
 
