@@ -1,0 +1,42 @@
+<% content_for :title, @till.name + " - Sessions" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Till sessions</h1>
+
+    <%= link_to "New till session", new_admin_till_till_session_path(@till), class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  </div>
+
+  <div id="till_sessions" class="min-w-full divide-y divide-gray-200 space-y-5">
+    <% if @till_sessions.any? %>
+      <table>
+        <thead>
+        <tr>
+          <th>Opening Date</th>
+          <th>Opening Float</th>
+          <th>Closing Date</th>
+          <th>Closing Float</th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @till_sessions.each do |till_session| %>
+            <tr>
+              <td><%= link_to till_session.opened_at, admin_till_till_session_path(@till, till_session) %></td>
+              <td><%= till_session.opening_float %></td>
+              <td><%= till_session.closed_at %></td>
+              <td><%= till_session.closing_float %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-center my-10">No till sessions found.</p>
+    <% end %>
+  </div>
+
+  <%= link_to "Back to till", admin_till_path(@till), class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+</div>

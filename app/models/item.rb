@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   end
 
   def gross_price
-    return 0 unless net_price && vat_rate
+    return 0 unless net_price
 
     net_price + vat_price
   end

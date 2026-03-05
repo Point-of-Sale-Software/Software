@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   get "user_login/login_page"
   resources :items
+=======
+  namespace :admin do
+    resources :items
+>>>>>>> 4852a940455d506bc76325af4b1c6c32bb562bb1
 
-  resources :tills do
-    resources :till_sessions do
-      member do
-        patch :close
+    resources :tills do
+      resources :till_sessions do
+        member do
+          patch :close
+        end
       end
     end
   end

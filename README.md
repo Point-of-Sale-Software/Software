@@ -7,11 +7,12 @@ Point of Sale Software
 # How To Run
 
 - [Install Ruby on Rails](https://guides.rubyonrails.org/install_ruby_on_rails.html)
+- Run `bundle install` to install dependencies
 
-## Live Server
+## Development Environment
 
-Run `bin/rails s`.
+Run `bin/dev`. This will run the development server on [http://localhost:3000].
 
-## Run Database Migrations
+## Database Migrations
 
 Run `bin/rails db:migrate`.
