@@ -10,13 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_20_233527) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_21_180818) do
   create_table "items", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.decimal "net_price"
     t.datetime "updated_at", null: false
     t.decimal "vat_rate"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.decimal "amount", null: false
+    t.datetime "created_at", null: false
+    t.string "method", null: false
+    t.integer "sale_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sale_id"], name: "index_payments_on_sale_id"
+  end
+
+  create_table "sale_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.decimal "gross_price", null: false
+    t.integer "item_id", null: false
+    t.decimal "net_price", null: false
+    t.integer "quantity", null: false
+    t.integer "sale_id", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "vat_price", null: false
+    t.decimal "vat_rate", null: false
+    t.index ["item_id"], name: "index_sale_items_on_item_id"
+    t.index ["sale_id"], name: "index_sale_items_on_sale_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "started_at", null: false
+    t.integer "till_session_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["till_session_id"], name: "index_sales_on_till_session_id"
   end
 
   create_table "till_sessions", force: :cascade do |t|
@@ -37,5 +69,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_20_233527) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "payments", "sales"
+  add_foreign_key "sale_items", "items"
+  add_foreign_key "sale_items", "sales"
+  add_foreign_key "sales", "till_sessions"
   add_foreign_key "till_sessions", "tills"
+  add_foreign_key "till_sessions", "tills", on_delete: :restrict
 end

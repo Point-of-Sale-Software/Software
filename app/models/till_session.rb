@@ -1,6 +1,8 @@
 class TillSession < ApplicationRecord
   belongs_to :till
 
+  has_many :sales
+
   before_validation :set_opened_at, on: :create
 
   validate :only_one_active_session, on: :create

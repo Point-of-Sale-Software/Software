@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  has_many :sale_items
+
   def vat_price
     return 0 unless net_price && vat_rate
 
