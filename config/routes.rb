@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
   get "user_login/login_page"
-  resources :items
-=======
+
   namespace :admin do
     resources :items
->>>>>>> 4852a940455d506bc76325af4b1c6c32bb562bb1
 
     resources :tills do
       resources :till_sessions do
@@ -15,7 +12,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   get  '/login',  to: 'user_login#login_page'
   post '/login',  to: 'user_login#login_page'
   root 'user_login#login_page'
