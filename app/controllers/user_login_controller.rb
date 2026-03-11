@@ -1,4 +1,4 @@
 class UserLoginController < ApplicationController
-  def login_page
+  def index
   end
 end
