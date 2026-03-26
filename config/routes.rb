@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :user_login
+  resource :sessions
+  resources :passwords, param: :token
 
   # Admin routes
   namespace :admin do
@@ -14,5 +15,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root "user_login#index"
+  root "sessions#new"
 end

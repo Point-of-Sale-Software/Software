@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_21_180818) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_26_123112) do
   create_table "items", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -51,6 +51,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_180818) do
     t.index ["till_session_id"], name: "index_sales_on_till_session_id"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "till_sessions", force: :cascade do |t|
     t.datetime "closed_at"
     t.decimal "closing_float"
@@ -69,10 +78,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_21_180818) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address", null: false
+    t.string "password_digest", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+  end
+
   add_foreign_key "payments", "sales"
   add_foreign_key "sale_items", "items"
   add_foreign_key "sale_items", "sales"
   add_foreign_key "sales", "till_sessions"
+  add_foreign_key "sessions", "users"
   add_foreign_key "till_sessions", "tills"
   add_foreign_key "till_sessions", "tills", on_delete: :restrict
 end
