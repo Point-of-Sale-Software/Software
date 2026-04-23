@@ -16,3 +16,11 @@ Run `bin/dev`. This will run the development server on [http://localhost:3000](h
 ## Database Migrations
 
 Run `bin/rails db:migrate`.
+
+## Create an account
+
+To create an account run `bin/rails c` to get to the console. Then run (replace the values if you wish):
+
+```ruby
+User.create(email_address: "example@example.com", password: "example")
+```
