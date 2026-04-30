@@ -16,15 +16,15 @@ class Sale < ApplicationRecord
   end
 
   def total_net
-    sale_items.sum { |si| si.net_price * si.quantity }
+    sale_items.sum { |item| item.net_price * item.quantity }
   end
 
   def total_vat
-    sale_items.sum { |si| si.vat_price * si.quantity }
+    sale_items.sum { |item| item.vat_price * item.quantity }
   end
 
   def total_gross
-    sale_items.sum { |si| si.gross_price * si.quantity }
+    sale_items.sum { |item| item.gross_price * item.quantity }
   end
 
   def total_paid

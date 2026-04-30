@@ -1,14 +1,18 @@
-<div class="max-w-md mx-auto text-center">
-  <div class="bg-green-50 rounded-lg p-8 mb-6">
-    <div class="text-6xl mb-4">✓</div>
-    <h1 class="text-2xl font-bold text-green-700 mb-2">Sale Complete</h1>
-    <p class="text-gray-600">Thank you for your purchase</p>
+<div class="flux-header">
+  <h1>Sale Complete</h1>
+</div>
+
+<div class="max-w-md mx-auto">
+  <div class="flux-card text-center mb-6">
+    <div class="text-6xl mb-4 text-green-500">✓</div>
+    <h2 class="text-2xl font-bold text-green-700 mb-2">Thank You!</h2>
+    <p class="text-gray-600">Transaction completed successfully</p>
   </div>
 
-  <div class="bg-gray-50 rounded-lg p-4 mb-6 text-left">
-    <h2 class="font-bold mb-3">Sale Summary</h2>
+  <div class="flux-card mb-6">
+    <h3 class="font-bold mb-4">Sale Summary</h3>
 
-    <div class="space-y-1 text-sm mb-4">
+    <div class="space-y-2 text-sm mb-4">
       <% @sale.sale_items.includes(:item).each do |sale_item| %>
         <div class="flex justify-between">
           <span><%= sale_item.quantity %> × <%= sale_item.item.name %></span>
@@ -17,15 +21,15 @@
       <% end %>
     </div>
 
-    <div class="border-t pt-3 space-y-1">
-      <div class="flex justify-between font-bold">
+    <div class="border-t pt-3 space-y-2">
+      <div class="flex justify-between font-bold text-lg">
         <span>Total:</span>
         <span>£<%= '%.2f' % @sale.total_gross %></span>
       </div>
     </div>
 
-    <div class="border-t pt-3 mt-3 space-y-1 text-sm">
-      <h3 class="font-semibold">Payments:</h3>
+    <div class="border-t pt-3 mt-3 space-y-2 text-sm">
+      <h4 class="font-semibold">Payments:</h4>
       <% @sale.payments.each do |payment| %>
         <div class="flex justify-between">
           <span class="capitalize"><%= payment.method %></span>
@@ -35,7 +39,5 @@
     </div>
   </div>
 
-  <%= link_to "Start New Sale",
-      till_ui_root_path,
-      class: "inline-block w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition" %>
+  <%= link_to "Start New Sale", till_ui_root_path, class: "flux-btn block text-center" %>
 </div>

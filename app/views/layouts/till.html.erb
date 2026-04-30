@@ -1,11 +1,44 @@
-<% content_for :header do %>
-  <nav class="w-full bg-blue-200 p-2 flex items-center gap-4">
-    <h2 class="text-2xl font-bold">FlexRetail - Till</h2>
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <title><%= content_for(:title) || "FluxRetail - Till" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-    <div class="ml-auto">
-      <%= button_to "Sign Out", sessions_path, method: :delete, class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    <link rel="icon" href="/icon.png" type="image/png">
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="flux-layout">
+      <!-- Sidebar -->
+      <div class="flux-sidebar flex flex-col">
+        <h2>FluxRetail</h2>
+
+        <nav class="flux-sidebar-nav">
+          <%= link_to "New Sale", till_ui_root_path, class: "#{controller_name == 'start' ? 'active' : ''}" %>
+        </nav>
+
+        <div class="flux-sidebar-footer">
+          <div class="text-sm text-purple-200 mb-2"><%= Current.user&.name || Current.user&.email_address %></div>
+          <%= button_to "Sign Out", sessions_path, method: :delete, class: "flux-btn flux-btn-secondary w-full text-sm" %>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flux-main">
+        <% if alert.present? %>
+          <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4"><%= alert %></div>
+        <% end %>
+        <% if notice.present? %>
+          <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4"><%= notice %></div>
+        <% end %>
+
+        <%= yield %>
+      </div>
     </div>
-  </nav>
-<% end %>
-
-<%= render template: "layouts/application" %>
+  </body>
+</html>

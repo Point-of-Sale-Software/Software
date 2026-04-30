@@ -1,10 +1,326 @@
 /*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
+ * FluxRetail Styles
+ * Based on POC Dashboard design
  */
+
+:root {
+  --purple-primary: #6a0dad;
+  --purple-dark: #5800a8;
+  --purple-light: #712f79;
+  --gray-bg: #f5f5f5;
+}
+
+/* Sidebar Layout */
+.flux-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.flux-sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: var(--purple-primary);
+  color: white;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.flux-sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.flux-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flux-sidebar-nav a {
+  display: block;
+  color: #ddd;
+  padding: 10px 12px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.flux-sidebar-nav a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.flux-sidebar-nav a.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.flux-sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Main Content */
+.flux-main {
+  flex: 1;
+  padding: 20px;
+  background: var(--gray-bg);
+  overflow-y: auto;
+}
+
+.flux-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.flux-header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.flux-search {
+  padding: 10px 14px;
+  width: 220px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+}
+
+.flux-search:focus {
+  outline: none;
+  border-color: var(--purple-primary);
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1);
+}
+
+/* Content Layout */
+.flux-content {
+  display: flex;
+  gap: 20px;
+  height: calc(100vh - 100px);
+}
+
+/* Product Grid */
+.flux-products {
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  align-content: start;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Product Card */
+.flux-product-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.flux-product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: var(--purple-primary);
+}
+
+.flux-product-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 10px 0 5px;
+  color: #333;
+}
+
+.flux-product-card .price {
+  font-weight: bold;
+  color: var(--purple-primary);
+  font-size: 1.1rem;
+}
+
+/* Cart Panel */
+.flux-cart {
+  flex: 1;
+  min-width: 300px;
+  max-width: 380px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.flux-cart h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.flux-cart-items {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.flux-cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.flux-cart-item:last-child {
+  border-bottom: none;
+}
+
+.flux-cart-item-name {
+  font-weight: 500;
+}
+
+.flux-cart-item-qty {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.flux-cart-item-price {
+  font-weight: 600;
+}
+
+.flux-cart-item-remove {
+  color: #dc2626;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.flux-cart-item-remove:hover {
+  background: #fee2e2;
+}
+
+.flux-cart-totals {
+  border-top: 2px solid #eee;
+  padding-top: 15px;
+  margin-top: auto;
+}
+
+.flux-cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.flux-cart-total-row.grand-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+/* Buttons */
+.flux-btn {
+  background: var(--purple-primary);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.15s;
+}
+
+.flux-btn:hover {
+  background: var(--purple-dark);
+}
+
+.flux-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.flux-btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.flux-btn-secondary:hover {
+  background: #d1d5db;
+}
+
+/* Cards */
+.flux-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tables */
+.flux-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.flux-table th,
+.flux-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.flux-table th {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.flux-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* Empty State */
+.flux-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.flux-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+/* Badge */
+.flux-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.flux-badge-purple {
+  background: #f3e8ff;
+  color: var(--purple-primary);
+}
+
+.flux-badge-green {
+  background: #dcfce7;
+  color: #16a34a;
+}

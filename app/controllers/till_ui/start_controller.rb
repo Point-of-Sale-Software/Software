@@ -10,7 +10,7 @@ module TillUi
       @sale = Sale.new(till_session: @session)
 
       if @sale.save
-        redirect_to till_ui_sale_path(@sale), notice: "Sale was successfully created."
+        redirect_to till_ui_sale_path(@sale)
       else
         render :index, status: :unprocessable_content
       end
