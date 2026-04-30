@@ -1,0 +1,38 @@
+<% content_for :title, "Completed Sales" %>
+
+<div class="w-full">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl">Completed Sales</h1>
+  </div>
+
+  <% if @sales.any? %>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead>
+        <tr>
+          <th class="text-left py-3 px-4 font-semibold">Sale #</th>
+          <th class="text-left py-3 px-4 font-semibold">Completed</th>
+          <th class="text-left py-3 px-4 font-semibold">Items</th>
+          <th class="text-right py-3 px-4 font-semibold">Total</th>
+          <th class="text-right py-3 px-4 font-semibold">Payment Method</th>
+          <th class="py-3 px-4"></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <% @sales.each do |sale| %>
+          <tr>
+            <td class="py-3 px-4"><%= sale.id %></td>
+            <td class="py-3 px-4"><%= sale.completed_at.strftime("%d %b %Y %H:%M") %></td>
+            <td class="py-3 px-4"><%= sale.sale_items.sum(:quantity) %></td>
+            <td class="py-3 px-4 text-right">£<%= '%.2f' % sale.total_gross %></td>
+            <td class="py-3 px-4 text-right capitalize"><%= sale.payments.pluck(:method).uniq.join(", ") %></td>
+            <td class="py-3 px-4 text-right">
+              <%= link_to "View", admin_sale_path(sale), class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="text-center my-10 text-gray-500">No completed sales found.</p>
+  <% end %>
+</div>

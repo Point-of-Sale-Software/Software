@@ -1,0 +1,77 @@
+<% content_for :title, "Sale ##{@sale.id}" %>
+
+<div class="w-full max-w-2xl">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl">Sale #<%= @sale.id %></h1>
+    <%= link_to "Back to Sales", admin_sales_path, class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  </div>
+
+  <div class="bg-gray-50 rounded-lg p-6 mb-6">
+    <dl class="grid grid-cols-2 gap-4 text-sm">
+      <div>
+        <dt class="font-semibold">Started</dt>
+        <dd><%= @sale.started_at.strftime("%d %b %Y %H:%M") %></dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Completed</dt>
+        <dd><%= @sale.completed_at&.strftime("%d %b %Y %H:%M") || "—" %></dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Till Session</dt>
+        <dd><%= @sale.till_session_id %></dd>
+      </div>
+    </dl>
+  </div>
+
+  <h2 class="font-bold text-2xl mb-4">Items</h2>
+  <table class="min-w-full divide-y divide-gray-200 mb-6">
+    <thead>
+      <tr>
+        <th class="text-left py-2 font-semibold">Item</th>
+        <th class="text-center py-2 font-semibold">Qty</th>
+        <th class="text-right py-2 font-semibold">Net</th>
+        <th class="text-right py-2 font-semibold">VAT</th>
+        <th class="text-right py-2 font-semibold">Gross</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <% @sale.sale_items.includes(:item).each do |sale_item| %>
+        <tr>
+          <td class="py-2"><%= sale_item.item.name %></td>
+          <td class="py-2 text-center"><%= sale_item.quantity %></td>
+          <td class="py-2 text-right">£<%= '%.2f' % (sale_item.net_price * sale_item.quantity) %></td>
+          <td class="py-2 text-right">£<%= '%.2f' % (sale_item.vat_price * sale_item.quantity) %></td>
+          <td class="py-2 text-right">£<%= '%.2f' % (sale_item.gross_price * sale_item.quantity) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot class="border-t-2">
+      <tr class="font-bold">
+        <td class="py-2" colspan="2">Total</td>
+        <td class="py-2 text-right">£<%= '%.2f' % @sale.total_net %></td>
+        <td class="py-2 text-right">£<%= '%.2f' % @sale.total_vat %></td>
+        <td class="py-2 text-right">£<%= '%.2f' % @sale.total_gross %></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h2 class="font-bold text-2xl mb-4">Payments</h2>
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead>
+      <tr>
+        <th class="text-left py-2 font-semibold">Method</th>
+        <th class="text-right py-2 font-semibold">Amount</th>
+        <th class="text-right py-2 font-semibold">Time</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <% @sale.payments.each do |payment| %>
+        <tr>
+          <td class="py-2 capitalize"><%= payment.method %></td>
+          <td class="py-2 text-right">£<%= '%.2f' % payment.amount %></td>
+          <td class="py-2 text-right"><%= payment.created_at.strftime("%H:%M:%S") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
