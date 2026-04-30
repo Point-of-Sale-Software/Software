@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resource :home
-
   resource :sessions
   resources :passwords, param: :token
 
@@ -15,6 +13,8 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    root "home#index"
   end
 
   root "home#index"

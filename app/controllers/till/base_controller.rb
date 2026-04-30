@@ -1,5 +1,5 @@
-module Admin
+module Till
   class BaseController < ApplicationController
-    layout "admin"
+    layout "till"
   end
 end
