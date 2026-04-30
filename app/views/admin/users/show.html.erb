@@ -1,0 +1,50 @@
+<% content_for :title, @user.name || @user.email_address %>
+
+<div class="w-full max-w-2xl">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl"><%= @user.name || @user.email_address %></h1>
+    <div class="space-x-2">
+      <%= link_to "Edit", edit_admin_user_path(@user), class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+      <%= link_to "Back", admin_users_path, class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    </div>
+  </div>
+
+  <div class="bg-gray-50 rounded-lg p-6">
+    <dl class="space-y-4">
+      <div>
+        <dt class="font-semibold text-gray-500 text-sm">Name</dt>
+        <dd class="mt-1"><%= @user.name || "—" %></dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-gray-500 text-sm">Email Address</dt>
+        <dd class="mt-1"><%= @user.email_address %></dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-gray-500 text-sm">Role</dt>
+        <dd class="mt-1">
+          <% if @user.admin? %>
+            <span class="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded">Admin</span>
+          <% else %>
+            <span class="text-gray-600">Standard User</span>
+          <% end %>
+        </dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-gray-500 text-sm">Created</dt>
+        <dd class="mt-1"><%= @user.created_at.strftime("%d %b %Y %H:%M") %></dd>
+      </div>
+    </dl>
+  </div>
+
+  <% if @user != Current.user %>
+    <div class="mt-6 pt-6 border-t">
+      <%= button_to "Delete User", admin_user_path(@user), method: :delete,
+          class: "rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium",
+          data: { turbo_confirm: "Are you sure you want to delete this user?" } %>
+    </div>
+  <% end %>
+</div>

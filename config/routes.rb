@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # Admin routes
   namespace :admin do
     resources :items
+    resources :users
     resources :sales, only: [ :index, :show ]
 
     resources :tills do
