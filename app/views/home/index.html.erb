@@ -1,7 +1,23 @@
-<div class="flex gap-5">
-  <%= link_to "Admin", admin_root_path, class: "p-10 bg-gray-300 rounded-lg" %>
+<div class="fixed inset-0 flex flex-col items-center justify-center">
+  <%= image_tag "logo.png", class: "w-32 mb-4", alt: "FluxRetail Logo" %>
+  <h1 class="text-4xl font-bold mb-2">FluxRetail</h1>
+  <p class="text-gray-500 mb-10">Select an option to continue</p>
 
-  <%= link_to "Till", till_ui_root_path, class: "p-10 bg-gray-300 rounded-lg" %>
+  <div class="grid grid-cols-2 gap-6 w-full max-w-md">
+    <%= link_to admin_root_path, class: "flex flex-col items-center p-8 bg-blue-100 hover:bg-blue-200 rounded-xl transition" do %>
+      <div class="text-4xl mb-3">⚙️</div>
+      <div class="text-xl font-semibold">Admin</div>
+      <div class="text-sm text-gray-500">Manage items & tills</div>
+    <% end %>
 
-  <%= button_to "Sign Out", sessions_path, method: :delete, class: "p-10 bg-gray-300 rounded-lg" %>
+    <%= link_to till_ui_root_path, class: "flex flex-col items-center p-8 bg-green-100 hover:bg-green-200 rounded-xl transition" do %>
+      <div class="text-4xl mb-3">🛒</div>
+      <div class="text-xl font-semibold">Till</div>
+      <div class="text-sm text-gray-500">Start a new sale</div>
+    <% end %>
+  </div>
+
+  <div class="mt-10">
+    <%= button_to "Sign Out", sessions_path, method: :delete, class: "px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition" %>
+  </div>
 </div>
