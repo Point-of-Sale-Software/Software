@@ -3,11 +3,13 @@
   <h1 class="text-4xl font-bold mb-2">FluxRetail</h1>
   <p class="text-gray-500 mb-10">Select an option to continue</p>
 
-  <div class="grid grid-cols-2 gap-6 w-full max-w-md">
-    <%= link_to admin_root_path, class: "flex flex-col items-center p-8 bg-blue-100 hover:bg-blue-200 rounded-xl transition" do %>
-      <div class="text-4xl mb-3">⚙️</div>
-      <div class="text-xl font-semibold">Admin</div>
-      <div class="text-sm text-gray-500">Manage items & tills</div>
+  <div class="flex gap-6">
+    <% if Current.user&.admin? %>
+      <%= link_to admin_root_path, class: "flex flex-col items-center p-8 bg-blue-100 hover:bg-blue-200 rounded-xl transition" do %>
+        <div class="text-4xl mb-3">⚙️</div>
+        <div class="text-xl font-semibold">Admin</div>
+        <div class="text-sm text-gray-500">Manage items & tills</div>
+      <% end %>
     <% end %>
 
     <%= link_to till_ui_root_path, class: "flex flex-col items-center p-8 bg-green-100 hover:bg-green-200 rounded-xl transition" do %>

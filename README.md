@@ -22,5 +22,5 @@ Run `bin/rails db:migrate`.
 To create an account run `bin/rails c` to get to the console. Then run (replace the values if you wish):
 
 ```ruby
-User.create(email_address: "example@example.com", password: "example")
+User.create(name: "Demo", email_address: "example@example.com", password: "example", admin: true)
 ```
