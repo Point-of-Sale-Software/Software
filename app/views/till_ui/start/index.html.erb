@@ -1,11 +1,25 @@
-<div class="container">
-  <div class="flex pb-4">
-    <h1 class="text-2xl">Select Till Session</h1>
+<div class="fixed inset-0 top-16 flex flex-col items-center justify-center p-6">
+  <div class="text-center mb-8">
+    <h1 class="text-3xl font-bold mb-2">Select a Till</h1>
+    <p class="text-gray-500">Choose an active till session to start a new sale</p>
   </div>
 
-  <div class="flex gap-5">
-    <% @sessions.each do |session| %>
-      <%= link_to session.till_id, till_ui_start_url(session), class: "p-10 bg-gray-300 rounded-lg" %>
-    <% end %>
-  </div>
+  <% if @sessions.any? %>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 w-full max-w-2xl">
+      <% @sessions.each do |session| %>
+        <%= link_to till_ui_start_path(session), class: "flex flex-col items-center p-8 bg-purple-100 hover:bg-purple-200 rounded-xl transition border-2 border-transparent hover:border-purple-400" do %>
+          <div class="text-4xl mb-3">🖥️</div>
+          <div class="text-xl font-semibold"><%= session.till.name || "Till #{session.till_id}" %></div>
+          <div class="text-sm text-gray-500 mt-1">Opened <%= time_ago_in_words(session.opened_at) %> ago</div>
+          <div class="text-xs text-gray-400 mt-2">Float: £<%= '%.2f' % session.opening_float %></div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center p-12 bg-gray-50 rounded-xl max-w-md">
+      <div class="text-5xl mb-4">📭</div>
+      <h2 class="text-xl font-semibold mb-2">No Active Till Sessions</h2>
+      <p class="text-gray-500">Ask an administrator to open a till session before you can start a sale.</p>
+    </div>
+  <% end %>
 </div>
