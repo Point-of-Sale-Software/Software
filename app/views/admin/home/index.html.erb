@@ -26,6 +26,18 @@
             <span class="text-gray-600">Gross:</span>
             <span class="font-bold text-lg">£<%= '%.2f' % @todays_sales.sum(&:total_gross) %></span>
           </div>
+
+          <% if @todays_payments.any? %>
+            <div class="border-t pt-3 mt-3">
+              <div class="text-sm text-gray-500 mb-2">By Payment Method:</div>
+              <% @todays_payments.each do |method, amount| %>
+                <div class="flex justify-between">
+                  <span class="text-gray-600 capitalize"><%= method %>:</span>
+                  <span class="font-semibold">£<%= '%.2f' % amount %></span>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       <% else %>
         <p class="text-gray-500">No sales completed today.</p>
