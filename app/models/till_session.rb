@@ -7,6 +7,8 @@ class TillSession < ApplicationRecord
 
   validate :only_one_active_session, on: :create
 
+  scope :active, -> { where(closed_at: nil) }
+
   def active?
     closed_at.nil?
   end

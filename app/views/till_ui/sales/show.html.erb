@@ -1,0 +1,94 @@
+<div class="flex gap-6 h-full">
+  <!-- Left side: Item grid -->
+  <div class="flex-1">
+    <h2 class="text-xl font-bold mb-4">Items</h2>
+    <div class="grid grid-cols-3 gap-3">
+      <% @items.each do |item| %>
+        <%= button_to till_ui_sale_sale_items_path(@sale, item_id: item.id),
+            method: :post,
+            class: "p-6 bg-blue-100 hover:bg-blue-200 rounded-lg text-center transition" do %>
+          <div class="font-semibold"><%= item.name %></div>
+          <div class="text-sm text-gray-600">£<%= '%.2f' % item.gross_price %></div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Right side: Cart and totals -->
+  <div class="w-96 flex flex-col bg-gray-50 rounded-lg p-4">
+    <h2 class="text-xl font-bold mb-4">Current Sale</h2>
+
+    <!-- Cart items -->
+    <div class="flex-1 overflow-y-auto mb-4">
+      <% if @sale_items.any? %>
+        <table class="w-full">
+          <thead>
+            <tr class="border-b">
+              <th class="text-left py-2">Item</th>
+              <th class="text-center py-2">Qty</th>
+              <th class="text-right py-2">Price</th>
+              <th class="py-2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @sale_items.each do |sale_item| %>
+              <tr class="border-b">
+                <td class="py-2"><%= sale_item.item.name %></td>
+                <td class="text-center py-2"><%= sale_item.quantity %></td>
+                <td class="text-right py-2">£<%= '%.2f' % (sale_item.gross_price * sale_item.quantity) %></td>
+                <td class="py-2 text-right">
+                  <%= button_to till_ui_sale_sale_item_path(@sale, sale_item),
+                      method: :delete,
+                      class: "text-red-600 hover:text-red-800 px-2" do %>
+                    ✕
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="text-gray-500 text-center py-8">No items added yet</p>
+      <% end %>
+    </div>
+
+    <!-- Totals -->
+    <div class="border-t pt-4 space-y-2">
+      <div class="flex justify-between text-sm">
+        <span>Subtotal (Net):</span>
+        <span>£<%= '%.2f' % @sale.total_net %></span>
+      </div>
+      <div class="flex justify-between text-sm">
+        <span>VAT:</span>
+        <span>£<%= '%.2f' % @sale.total_vat %></span>
+      </div>
+      <div class="flex justify-between font-bold text-lg border-t pt-2">
+        <span>Total:</span>
+        <span>£<%= '%.2f' % @sale.total_gross %></span>
+      </div>
+      <% if @sale.total_paid > 0 %>
+        <div class="flex justify-between text-sm text-green-600">
+          <span>Paid:</span>
+          <span>£<%= '%.2f' % @sale.total_paid %></span>
+        </div>
+        <div class="flex justify-between font-bold">
+          <span>Amount Due:</span>
+          <span>£<%= '%.2f' % @sale.amount_due %></span>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Payment button -->
+    <div class="mt-4">
+      <% if @sale_items.any? %>
+        <%= link_to "Take Payment",
+            new_till_ui_sale_payment_path(@sale),
+            class: "block w-full text-center py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition" %>
+      <% else %>
+        <span class="block w-full text-center py-3 bg-gray-300 text-gray-500 font-bold rounded-lg cursor-not-allowed">
+          Take Payment
+        </span>
+      <% end %>
+    </div>
+  </div>
+</div>

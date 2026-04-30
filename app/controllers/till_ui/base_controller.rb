@@ -1,4 +1,4 @@
-module Till
+module TillUi
   class BaseController < ApplicationController
     layout "till"
   end

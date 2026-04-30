@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="flex pb-4">
+    <h1 class="text-2xl">Select Till Session</h1>
+  </div>
+
+  <div class="flex gap-5">
+    <% @sessions.each do |session| %>
+      <%= link_to session.till_id, till_ui_start_url(session), class: "p-10 bg-gray-300 rounded-lg" %>
+    <% end %>
+  </div>
+</div>

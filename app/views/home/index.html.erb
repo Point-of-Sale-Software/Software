@@ -1,5 +1,7 @@
 <div class="flex gap-5">
   <%= link_to "Admin", admin_root_path, class: "p-10 bg-gray-300 rounded-lg" %>
 
-  <%= link_to "Till", "", class: "p-10 bg-gray-300 rounded-lg" %>
+  <%= link_to "Till", till_ui_root_path, class: "p-10 bg-gray-300 rounded-lg" %>
+
+  <%= button_to "Sign Out", sessions_path, method: :delete, class: "p-10 bg-gray-300 rounded-lg" %>
 </div>
